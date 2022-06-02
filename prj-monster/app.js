@@ -10,6 +10,7 @@ const app = Vue.createApp({
             playerHealth : 100,
             monsterHealth : 100,
             currentRound : 0,
+            gameResults : null,
         }
     } ,
 
@@ -25,6 +26,35 @@ const app = Vue.createApp({
             return this.currentRound % 3 !== 0
         },
 
+    },
+
+    // Add a watch property to monitor both playerHealth & monsterHealth
+    watch : {
+        playerHealth(value){
+            // Check for draw
+           
+            if( value <= 0 && this.monsterHealth <= 0 ){
+                //draw
+                this.gameResults = 'Draw'
+            }else if( value <= 0 ){
+                //player lost
+                this.gameResults = 'Monster'
+            }
+
+        },
+        monsterHealth(value){
+
+            // Check for Draw
+            if (value <= 0 && this.playerHealth <= 0) {
+                //draw
+                this.gameResults = 'Draw'
+
+            } else if (value <= 0) {
+                //Monster lost
+                this.gameResults = 'Player'
+            }
+
+        }
     },
 
     methods : {
