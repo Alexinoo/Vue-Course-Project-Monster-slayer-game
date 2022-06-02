@@ -49,11 +49,11 @@
         </section>
         <!-- End of Game results -->
 
-      <section id="controls">
+      <section id="controls" v-else>
         <button @click="attackMonster">ATTACK</button>
         <button @click="specialAttackMonster" :disabled="mayUseSpecialAttack">SPECIAL ATTACK</button>
         <button @click="healPlayer">HEAL</button>
-        <button>SURRENDER</button>
+        <button @click="surrender">SURRENDER</button>
       </section>
 
       <section id="log" class="container">
