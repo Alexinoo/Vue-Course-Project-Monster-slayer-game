@@ -39,9 +39,15 @@
         <h2>Game Over !</h2>
         <h3 v-if="gameResults === 'Player' ">You Won !</h3>
         <h3  v-else-if="gameResults === 'Monster' "> You Lost !</h3>
-        <h3  v-else="gameResults === 'Draw' ">It's a draw !</h3>
-      </section>
-      <!-- End of Game results -->
+        <h3  v-else="gameResults === 'Draw' ">It's a draw !</h3>        
+
+      <!-- Start new Game after the results-->
+        <button @click="startGame">Start New Game</button>
+      <!-- End of  Start new Game-->
+
+
+        </section>
+        <!-- End of Game results -->
 
       <section id="controls">
         <button @click="attackMonster">ATTACK</button>
