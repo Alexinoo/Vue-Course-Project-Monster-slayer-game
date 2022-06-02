@@ -11,6 +11,7 @@ const app = Vue.createApp({
             monsterHealth : 100,
             currentRound : 0,
             gameResults : null,
+            logMessages : []
         }
     } ,
 
@@ -71,6 +72,7 @@ const app = Vue.createApp({
             this.monsterHealth  = 100
             this.currentRound  = 0
             this.gameResults =  null
+            this.logMessages = []
         },
 
         attackMonster(){
@@ -78,14 +80,22 @@ const app = Vue.createApp({
             const attackValue = getRandomValue(5 , 12)
             this.monsterHealth -= attackValue
             //longhand: this.monsterHealth = this.monsterHealth - attackValue
+
+            // Log the attack by Player
+            this.addLogMessage('Player', 'attack', attackValue)
+
             // Monster to attack Player
             this.attackPlayer()
+          
         },
 
         attackPlayer() {
 
             const attackValue = getRandomValue(8, 15)
             this.playerHealth -= attackValue
+
+            // Log the attack by Player
+            this.addLogMessage('Monster', 'attack', attackValue)
         },
 
         // We can only do it with 3 rounds
@@ -93,6 +103,9 @@ const app = Vue.createApp({
             this.currentRound++
             const attackValue = getRandomValue(10,25)
             this.monsterHealth  -= attackValue
+
+            // Log the special attack by Player
+            this.addLogMessage('Player', 'special-attack', attackValue)
             this.attackPlayer()
         } ,
 
@@ -106,12 +119,28 @@ const app = Vue.createApp({
 
                 this.playerHealth += healValue
             }
+            this.addLogMessage('Player', 'heal', healValue)
             this.attackPlayer()
         },
 
         surrender(){
 
+            this.addLogMessage('Player', 'surrender', attackValue)
             this.gameResults = 'Monster'
+        },
+
+        addLogMessage( who , what , value ){
+
+            // push - Adds at the end of the array
+            // unshift - Adds at the beginning of the array
+            // Add an object with specifics
+            //Who did what and the extent of the damage
+            this.logMessages.unshift({
+                actionBy : who ,
+                actionType: what ,
+                actionValue: value ,
+            })
+
         }
 
     },
